@@ -22,7 +22,7 @@ interface SliderDotsProps {
     }
   
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '12px', zIndex: '10',  }}>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '12px', zIndex: '10', height:'10px'}}>
         {getVisibleDots().map(index => (
           <div
             key={index}
@@ -33,7 +33,7 @@ interface SliderDotsProps {
               borderRadius: '50%',
               backgroundColor: current === index ? '#ffffff' : '#888888',
               cursor: 'pointer',
-              transition: 'all 0.3s ease'
+              transition: 'all 0.3s ease',
             }}
           />
         ))}

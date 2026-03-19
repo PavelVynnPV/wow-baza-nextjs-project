@@ -28,9 +28,6 @@ export default function Slider() {
         .eq("is_active", true)
         .order("order", { ascending: true });
 
-      console.log("data", data);
-      console.log("error", error);
-
       if (data) setSlides(data as Slide[]);
     }
     fetchSlides();
@@ -47,15 +44,15 @@ export default function Slider() {
   if (slides.length === 0) return <div>Loading...</div>;
 
   return (
-    <div className="text-white lg:w-[1700px] mx-auto">
+    <div className="text-white max-w-[1700px] mx-auto px-2 mb-[80px]">
       <div className="relative w-full h-[500px] overflow-hidden mb-5">
         <img
           src={slides[current].image_url}
           className="absolute inset-0 w-full h-full object-cover rounded-3xl"
         />
-        <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/20 to-transparent rounded-3xl"/>
 
-        <div className="absolute bottom-10 left-8 text-white z-10 space-y-[11px]">
+        <div className="absolute bottom-10 left-3 text-white z-10 space-y-[11px] md:bottom-10 md:left-9">
           <p className="text-[24px] font-semibold m-0">
             {slides[current].title_frase}
           </p>
@@ -65,7 +62,7 @@ export default function Slider() {
           <p className="text-[12px] font-medium m-0">
             {slides[current].slide_description}
           </p>
-          <button className="mt-5 bg-[#FF0004]/50 px-4 py-2 rounded text-sm border lg:w-[100px] lg:h-[40px] cursor-pointer">
+          <button className="mt-5 bg-[#FF0004]/50 px-4 py-2 rounded text-sm border lg:w-[100px] lg:h-[40px] cursor-pointer hover:scale-105">
             {slides[current].slide_button}
           </button>
         </div>

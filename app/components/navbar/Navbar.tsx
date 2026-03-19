@@ -4,6 +4,8 @@ import Image from "next/image";
 import React, { useState } from "react";
 import NavButtons from "./NavButtons";
 import { Search } from "lucide-react";
+import BurgerMenu from "./BurgerMenu";
+import Link from "next/link";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
@@ -14,18 +16,19 @@ const Navbar = () => {
   //   )
 
   return (
-    <nav className="w-full mt-[50px] mb-[100px] text-white">
+    <nav className="w-full mt-[20px] mb-[30px] md:mt-[50px] md:mb-[60px] lg:mt-[50px] lg:mb-[100px] text-white">
+      <BurgerMenu/>
       {/* navbar container */}
-      <div className="flex items-center justify-center max-w-[1800px] h-[70px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="hidden lg:flex items-center justify-center max-w-[1800px] h-[70px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* logo + catalog */}
         <div className="flex items-center gap-5">
-          <Image
+          <Link href="/"><Image
             src="/logo.png"
             alt="logo"
             width={100}
             height={100}
             className="object-contain w-[50px] h-[50px] md:w-[120px] md:h-[120px] cursor-pointer"
-          />
+          /></Link>
           <button className="bg-[#FF9500]/70 px-20 w-[65px] h-[30px] md:w-[40px] md:h-[30px] lg:w-[45px] lg:h-[50px] font-semibold tracking-2 rounded-lg border-none cursor-pointer flex items-center justify-center transition-all hover:scale-103">
             <span>Catalog</span>
           </button>
