@@ -15,6 +15,7 @@ import CartDrawer from "../CartDrawer";
 import { useCart } from "@/app/context/CartContext";
 import { createPortal } from "react-dom";
 import SupportModal from "../SupportModal";
+import { AuthChangeEvent, Session } from '@supabase/supabase-js'
 
 export default function NavButtons() {
   const [user, setUser] = useState<any>(null);
@@ -37,7 +38,7 @@ export default function NavButtons() {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange((_event: AuthChangeEvent, session: Session | null) => {
       setUser(session?.user ?? null);
     });
 
