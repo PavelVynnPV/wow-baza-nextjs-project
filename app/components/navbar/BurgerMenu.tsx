@@ -10,9 +10,16 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import Image from "next/image";
+import CatalogModal from "./CatalogModal";
+import { Game, Category } from "@/types";
 
-export default function BurgerMenu() {
+export default function BurgerMenu({ games, categories, activeGame }: { 
+  games: Game[], 
+  categories: Category[],
+  activeGame: string
+}) {
   const [isOpen, setIsOpen] = useState(false);
+  const [catalogOpen, setCatalogOpen] = useState(false);
 
   return (
     <>
@@ -37,7 +44,7 @@ export default function BurgerMenu() {
           </button>
         </div>
   
-        <button className="bg-[#FF9500]/70 rounded-lg py-3 font-semibold text-white mb-6">
+        <button onClick={() => setCatalogOpen(!catalogOpen)} className="bg-[#FF9500]/70 rounded-lg py-3 font-semibold text-white mb-6 cursor-pointer">
           Catalog
         </button>
   
@@ -55,7 +62,16 @@ export default function BurgerMenu() {
           ))}
         </div>
   
+
+      
       </div>
-    </>
+      {catalogOpen && (
+        <CatalogModal
+          games={games}
+          categories={categories}
+          activeGame={activeGame}
+          onClose={() => setCatalogOpen(false)}
+        />
+      )}</>
   )
 }

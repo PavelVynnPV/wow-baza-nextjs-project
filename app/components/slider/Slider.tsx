@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../../lib/supabase";
 
 import SliderDots from "./SliderDots";
+import { useRouter } from "next/navigation";
 
 interface Slide {
   id: number;
@@ -14,24 +15,15 @@ interface Slide {
   image_url: string;
   order: number;
   is_active: boolean;
+  slug: string;
+}
+interface Props {
+  slides: Slide[]
 }
 
-export default function Slider() {
-  const [slides, setSlides] = useState<Slide[]>([]);
+export default function Slider({ slides = [] }: Props) {
   const [current, setCurrent] = useState(0);
-
-  useEffect(() => {
-    async function fetchSlides() {
-      const { data, error } = await supabase
-        .from("slides")
-        .select("*")
-        .eq("is_active", true)
-        .order("order", { ascending: true });
-
-      if (data) setSlides(data as Slide[]);
-    }
-    fetchSlides();
-  }, []);
+  const router = useRouter();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -41,7 +33,7 @@ export default function Slider() {
     return () => clearInterval(timer);
   }, [slides]);
 
-  if (slides.length === 0) return <div>Loading...</div>;
+  if (slides.length === 0) return null
 
   return (
     <div className="text-white max-w-[1700px] mx-auto px-2 mb-[80px]">
@@ -50,7 +42,7 @@ export default function Slider() {
           src={slides[current].image_url}
           className="absolute inset-0 w-full h-full object-cover rounded-3xl"
         />
-        <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/20 to-transparent rounded-3xl"/>
+        <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/20 to-transparent rounded-3xl" />
 
         <div className="absolute bottom-10 left-3 text-white z-10 space-y-[11px] md:bottom-10 md:left-9">
           <p className="text-[24px] font-semibold m-0">
@@ -62,7 +54,10 @@ export default function Slider() {
           <p className="text-[12px] font-medium m-0">
             {slides[current].slide_description}
           </p>
-          <button className="mt-5 bg-[#FF0004]/50 px-4 py-2 rounded text-sm border lg:w-[100px] lg:h-[40px] cursor-pointer hover:scale-105">
+          <button
+            onClick={() => router.push(`/games/${slides[current].slug}`)}
+            className="mt-5 bg-[#FF0004]/50 px-4 py-2 rounded text-sm border lg:w-[100px] lg:h-[40px] cursor-pointer hover:scale-105"
+          >
             {slides[current].slide_button}
           </button>
         </div>

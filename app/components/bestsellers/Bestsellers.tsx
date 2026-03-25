@@ -3,20 +3,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import Image from "next/image";
-
-interface Product {
-  id: number;
-  title: string;
-  features: string;
-  image_url: string;
-  price: number;
-  game_slug: string;
-}
-
-interface Game {
-  title: string;
-  slug: string;
-}
+import { Game, Product } from "@/types";
 
 export default function Bestsellers() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -27,7 +14,7 @@ export default function Bestsellers() {
     async function fetchGames() {
       const { data } = await supabase
         .from("games")
-        .select("title, slug")
+        .select("*")
         .eq("is_active", true)
         .order("order");
       if (data && data.length > 0) {
@@ -63,7 +50,7 @@ export default function Bestsellers() {
         />
       </div>
       <div className="max-w-[1700px] mx-auto px-4 py-10 ">
-        <h2 className="text-white text-center text-4xl font-bold mb-[70px]">
+        <h2 className="text-white text-center text-[50px] font-bold mb-[70px] font-rocker tracking-widest uppercase">
           WOW BESTSELLERS
         </h2>
 
@@ -96,7 +83,7 @@ export default function Bestsellers() {
               />
               <div className="p-4">
                 <h3 className="text-[#FF9500] font-bold text-[16px] mb-2">
-                  {product.title}
+                  {product.title} - <span className="capitalize">{product.category}</span>
                 </h3>
                 <ul className="mb-3">
                   {product.features?.split(",").map((f, i) => (

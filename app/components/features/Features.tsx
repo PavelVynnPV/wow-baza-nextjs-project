@@ -3,14 +3,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { CircleChevronRight } from "lucide-react";
-
-interface Feature {
-  id: number;
-  title: string;
-  description: string;
-  icon_url: string;
-  order: number;
-}
+import { Feature } from "@/types";
 
 export default function WhyUs() {
   const [features, setFeatures] = useState<Feature[]>([]);
@@ -33,7 +26,7 @@ export default function WhyUs() {
 
   return (
     <div className="max-w-[1700px] mx-auto px-4 py-16 pt-[26px] pb-[150px] ">
-      <h2 className="text-white text-center text-4xl font-bold mb-12">
+      <h2 className="text-white text-center text-[50px] font-bold mb-12 font-rocker tracking-widest uppercase">
         WHY SHOULD U CHOOSE US
       </h2>
 
